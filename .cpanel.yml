@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/kinx5z8psp21/public_html/danishwer.com
+    - /bin/cp -R * $DEPLOYPATH
