@@ -2,7 +2,7 @@
 
 ## Overview
 
-Danishwer is a nonprofit providing education and healthcare support to individuals facing financial hardship. The design system reflects three values: **trust**, **hope**, and **clarity**. Every decision should communicate credibility and emotional warmth without being generic.
+Danishwer is a merit-based educational support initiative in Pakistan. The design system reflects three values: **trust**, **hope**, and **clarity**. Every decision should communicate credibility and emotional warmth without being generic.
 
 The visual identity draws from the logo's navy blue and forest green, referencing both the institutional gravitas of education and the life-affirming tone of healthcare. The design sits between editorial (Fraunces serif headlines) and precision UI (Hanken Grotesk for body and interface), borrowing spatial generosity from Apple and conversion clarity from Stripe.
 
