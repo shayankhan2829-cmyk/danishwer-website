@@ -215,6 +215,30 @@ footer a:hover{color:#fff}
 @keyframes flow{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
 .lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .lbl.edu{color:var(--blue)}.lbl.med{color:var(--green)}
+
+/* hero quote slider */
+.qs{position:relative}
+.qs-card{position:relative;background:rgba(255,255,255,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:var(--r-lg);padding:26px 32px 20px;box-shadow:var(--shadow-lg);overflow:hidden}
+.qs-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--grad)}
+.qs-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.qs-mark{display:block;font-family:"Fraunces";font-weight:700;font-size:3.8rem;line-height:.9;height:30px;margin:12px 0 4px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.qs-card:has(.qs-slide.fact.active) .qs-mark{opacity:0}
+.qs-track{display:grid}
+.qs-slide{grid-area:1/1;align-self:center;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease,visibility 0s linear .6s;margin:0}
+.qs-slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .6s ease,transform .6s ease}
+.qs-slide blockquote{font-family:"Fraunces";font-weight:600;font-size:clamp(1.25rem,2vw,1.55rem);line-height:1.4;color:var(--ink)}
+.qs-slide figcaption{margin-top:14px;display:flex;flex-direction:column;gap:2px}
+.qs-slide figcaption b{font-family:"Fraunces";font-size:1.05rem;color:var(--navy)}
+.qs-slide figcaption span{font-size:.85rem;color:var(--muted)}
+.qs-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.qs-nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:1.3rem;line-height:1;color:var(--ink);transition:.2s}
+.qs-nav button:hover{background:var(--grad);color:#fff;border-color:transparent}
+.qs-dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.qs-dots i{width:9px;height:9px;border-radius:50%;background:var(--line);cursor:pointer;transition:.2s}
+.qs-dots i.on{background:var(--blue);width:24px;border-radius:5px}
+.qs-note{margin-top:12px;font-size:.78rem;color:var(--muted);text-align:center}
+@media(max-width:900px){.qs-card{padding:24px 20px 18px}}
+@media(prefers-reduced-motion:reduce){.qs-slide,.qs-slide.active{transition:none;transform:none}}
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
@@ -234,10 +258,16 @@ footer a:hover{color:#fff}
   place-items:center;font-family:"Fraunces";font-weight:600;font-size:1.15rem;margin-bottom:14px;
   box-shadow:0 6px 14px rgba(37,99,235,.28)}
 .tstep h3{font-size:1.1rem;margin-bottom:7px}
-.tstep p{color:var(--muted);font-size:.93rem;max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .4s,margin .4s}
-.tstep:hover p,.tstep:focus-within p{max-height:140px;opacity:1;margin-top:4px}
-.tstep .hint{color:var(--blue);font-weight:600;font-size:.86rem}
-.tstep:hover .hint,.tstep:focus-within .hint{display:none}
+.tstep p{color:var(--muted);font-size:.93rem}
+.tnum svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tcount{display:block;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:4px}
+.outcome{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;padding:18px 24px;border-radius:var(--r);background:var(--grad-soft);border:1px solid var(--line)}
+.outcome-lead{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.outcome ol{list-style:none;display:flex;align-items:center;flex-wrap:wrap;gap:14px}
+.outcome li{display:flex;align-items:center;gap:9px;font-weight:600;font-size:.95rem;color:var(--ink)}
+.outcome li svg{width:20px;height:20px;fill:none;stroke:var(--green);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.outcome li+li::before{content:"";width:28px;height:2px;margin-right:5px;border-radius:2px;background:var(--grad)}
+@media(max-width:700px){.outcome{flex-direction:column;align-items:flex-start;gap:12px}.outcome ol{flex-direction:column;align-items:flex-start}.outcome li+li::before{display:none}}
 /* dash */
 .dash{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:stretch}
 .dash-main{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px;box-shadow:var(--shadow-sm)}
@@ -391,27 +421,14 @@ footer a:hover{color:#fff}
         <div><b>100%</b>Tuition paid to the university</div>
       </div>
     </div>
-    <div class="reveal journey">
-      <div><div class="lbl edu">Education journey</div><div class="journey-row"><div class="jnode"><div class="jdot"><svg viewBox="0 0 24 24" stroke="#2563EB"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
-  <path d="M22 10v6" />
-  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg></div><span>Student</span></div><div class="jarrow"></div><div class="jnode"><div class="jdot"><svg viewBox="0 0 24 24" stroke="#2563EB"><path d="M10 18v-7" />
-  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
-  <path d="M14 18v-7" />
-  <path d="M18 18v-7" />
-  <path d="M3 22h18" />
-  <path d="M6 18v-7" /></svg></div><span>University</span></div><div class="jarrow"></div><div class="jnode"><div class="jdot"><svg viewBox="0 0 24 24" stroke="#1F7A47"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-  <rect width="20" height="14" x="2" y="6" rx="2" /></svg></div><span>Career</span></div></div></div>
-      <div><div class="lbl med">How Danishwer helps</div><div class="journey-row"><div class="jnode"><div class="jdot"><svg viewBox="0 0 24 24" stroke="#1F7A47"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
-  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
-  <path d="M10 9H8" />
-  <path d="M16 13H8" />
-  <path d="M16 17H8" /></svg></div><span>Application</span></div><div class="jarrow"></div><div class="jnode"><div class="jdot"><svg viewBox="0 0 24 24" stroke="#1F7A47"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-  <path d="m9 12 2 2 4-4" /></svg></div><span>Verified</span></div><div class="jarrow"></div><div class="jnode"><div class="jdot"><svg viewBox="0 0 24 24" stroke="#2563EB"><path d="M10 18v-7" />
-  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
-  <path d="M14 18v-7" />
-  <path d="M18 18v-7" />
-  <path d="M3 22h18" />
-  <path d="M6 18v-7" /></svg></div><span>Fee paid</span></div></div></div>
+    <div class="reveal qs" id="qs" role="region" aria-roledescription="carousel" aria-label="Students in their own words">
+      <div class="qs-card">
+        <div class="qs-label">In their own words</div>
+        <span class="qs-mark" aria-hidden="true">&#8220;</span>
+        <div class="qs-track" aria-live="off"><figure class="qs-slide active" aria-hidden="false"><blockquote>I decided to try again rather than give up. &#8230; I hope that one day I can help create similar opportunities for someone else.</blockquote><figcaption><b>Naila</b><span>BS Computer Science, FAST-NUCES</span></figcaption></figure><figure class="qs-slide" aria-hidden="true"><blockquote>Danishwer is not just a scholarship program for me. It is the reason my dream did not die.</blockquote><figcaption><b>Furqan</b><span>BS Software Engineering, FAST-NUCES</span></figcaption></figure><figure class="qs-slide" aria-hidden="true"><blockquote>It has enabled me to focus entirely on my studies and skills without the burden of financial hardship.</blockquote><figcaption><b>Abdullah</b><span>BS Computer Science, COMSATS University</span></figcaption></figure><figure class="qs-slide" aria-hidden="true"><blockquote>Danishwer has become a reliable source of guidance and motivation.</blockquote><figcaption><b>Pirah</b><span>BS Embedded Systems &amp; Security, Air University</span></figcaption></figure><figure class="qs-slide" aria-hidden="true"><blockquote>I can finally focus on my classes and career without constantly worrying about finances.</blockquote><figcaption><b>Nouman</b><span>BS Business Analytics, FAST-NUCES</span></figcaption></figure><figure class="qs-slide" aria-hidden="true"><blockquote>Having my educational fee at FAST covered was a huge relief for me and my family.</blockquote><figcaption><b>Ziab</b><span>BS Software Engineering, FAST-NUCES</span></figcaption></figure><figure class="qs-slide fact" aria-hidden="true"><blockquote>Scored 96% in FSc mathematics in both years, then earned a place at FAST.</blockquote><figcaption><b>Rehan</b><span>BS Computer Science, FAST-NUCES</span></figcaption></figure></div>
+        <div class="qs-nav"><button type="button" id="qsPrev" aria-label="Previous quote">&#8249;</button><div class="qs-dots"><i class="on" data-i="0"></i><i class="" data-i="1"></i><i class="" data-i="2"></i><i class="" data-i="3"></i><i class="" data-i="4"></i><i class="" data-i="5"></i><i class="" data-i="6"></i></div><button type="button" id="qsNext" aria-label="Next quote">&#8250;</button></div>
+      </div>
+      <p class="qs-note">Shared with each student&#8217;s consent. Names are first names only.</p>
     </div>
   </div>
 </section>
@@ -425,10 +442,32 @@ footer a:hover{color:#fff}
     </div>
     <div class="timeline reveal">
       <div class="tl-track"></div><div class="tl-fill" id="tlFill"></div>
-      <div class="tstep" tabindex="0"><div class="tnum">1</div><h3>Apply</h3><p>A student with a place on the merit list of a recognised university applies to Danishwer.</p><span class="hint">Hover to read more</span></div>
-      <div class="tstep" tabindex="0"><div class="tnum">2</div><h3>Interview</h3><p>An assessment and interview look at the student’s merit, character and genuine financial need.</p><span class="hint">Hover to read more</span></div>
-      <div class="tstep" tabindex="0"><div class="tnum">3</div><h3>Verify</h3><p>We confirm the student’s admission and merit standing with the university itself.</p><span class="hint">Hover to read more</span></div>
-      <div class="tstep" tabindex="0"><div class="tnum">4</div><h3>Fee paid</h3><p>Danishwer pays the tuition fee directly to the university, so the student stays in class from day one.</p><span class="hint">Hover to read more</span></div>
+      <div class="tstep" tabindex="0"><div class="tnum"><svg viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" /></svg></div><span class="tcount">Step 1</span><h3>Apply</h3><p>A student with a place on the merit list of a recognised university applies to Danishwer.</p></div>
+      <div class="tstep" tabindex="0"><div class="tnum"><svg viewBox="0 0 24 24"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg></div><span class="tcount">Step 2</span><h3>Interview</h3><p>An assessment and interview look at the student’s merit, character and genuine financial need.</p></div>
+      <div class="tstep" tabindex="0"><div class="tnum"><svg viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" /></svg></div><span class="tcount">Step 3</span><h3>Verify</h3><p>We confirm the student’s admission and merit standing with the university itself.</p></div>
+      <div class="tstep" tabindex="0"><div class="tnum"><svg viewBox="0 0 24 24"><path d="M10 18v-7" />
+  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
+  <path d="M14 18v-7" />
+  <path d="M18 18v-7" />
+  <path d="M3 22h18" />
+  <path d="M6 18v-7" /></svg></div><span class="tcount">Step 4</span><h3>Fee paid</h3><p>Danishwer pays the tuition fee directly to the university, so the student stays in class from day one.</p></div>
+    </div>
+    <div class="outcome reveal">
+      <span class="outcome-lead">What it leads to</span>
+      <ol><li><svg viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+  <path d="M22 10v6" />
+  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg>Student stays in class</li><li><svg viewBox="0 0 24 24"><path d="M10 18v-7" />
+  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
+  <path d="M14 18v-7" />
+  <path d="M18 18v-7" />
+  <path d="M3 22h18" />
+  <path d="M6 18v-7" /></svg>Completes the degree</li><li><svg viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  <rect width="20" height="14" x="2" y="6" rx="2" /></svg>Moves into a career</li></ol>
     </div>
   </div>
 </section>
@@ -575,6 +614,27 @@ footer a:hover{color:#fff}
 // timeline fill
 var howEl=document.getElementById('how');
 if(howEl){var tlio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var f=document.getElementById('tlFill');if(f)f.style.width='84%';tlio.unobserve(e.target);}});},{threshold:.4});tlio.observe(howEl);}
+
+// hero quote slider
+(function(){
+  var root=document.getElementById('qs');if(!root)return;
+  var slides=[].slice.call(root.querySelectorAll('.qs-slide')),dots=[].slice.call(root.querySelectorAll('.qs-dots i'));
+  var i=0,timer=null,paused=false,reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(n){i=(n+slides.length)%slides.length;
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);s.setAttribute('aria-hidden',k===i?'false':'true');});
+    dots.forEach(function(d,k){d.classList.toggle('on',k===i);});}
+  function start(){stop();if(reduce)return;timer=setInterval(function(){if(!paused)show(i+1);},5000);}
+  function stop(){if(timer){clearInterval(timer);timer=null;}}
+  document.getElementById('qsNext').addEventListener('click',function(){show(i+1);start();});
+  document.getElementById('qsPrev').addEventListener('click',function(){show(i-1);start();});
+  dots.forEach(function(d){d.addEventListener('click',function(){show(+d.dataset.i);start();});});
+  root.addEventListener('mouseenter',function(){paused=true;});root.addEventListener('mouseleave',function(){paused=false;});
+  root.addEventListener('focusin',function(){paused=true;});root.addEventListener('focusout',function(){paused=false;});
+  var x0=null;root.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  root.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){show(i+(dx<0?1:-1));start();}x0=null;});
+  document.addEventListener('visibilitychange',function(){paused=document.hidden;});
+  start();
+})();
 </script>
 </body>
 </html>
